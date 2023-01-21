@@ -1,63 +1,69 @@
+/** MultilineChart.js */
 import React from "react";
-import * as d3 from "d3";
-import {getXScale, getYScale, drawAxis, drawLine, animateLine} from "../utils.js";
+import { Line, Axis, GridLine, Area } from "../components";
+import useController from "./MultilineChart.controller";
 
-const MultilineChart = ({data = [], dimensions = {}}) => {
-
-    const svgRef = React.useRef(null);
-
-    const [portfolioData] = data;
-    const {width, height, margin = {}} = dimensions;
-    const [prevItems, setPrevItems] = React.useState([]);
+const MultilineChart = ({ data = [], dimensions = {} }) => {
+    const { width, height, margin = {} } = dimensions;
     const svgWidth = width + margin.left + margin.right;
     const svgHeight = height + margin.top + margin.bottom;
-
-    const xScale = React.useMemo(
-        () => getXScale(portfolioData.items, width),
-        [portfolioData, width]
-    );
-    const yScale = React.useMemo(
-        () => getYScale(portfolioData.items, height, 50),
-        [portfolioData, height]
-    );
-
-    React.useEffect(() => {
-        const svg = d3.select(".container");
-        svg.selectAll(".axis").remove();
-        // Add X grid lines with labels
-        drawAxis({
-            xScale,
-            container: svg,
-            tickSize: -height + margin.bottom,
-            ticks: 5,
-            transform: `translate(0, ${height - margin.bottom})`
-        });
-        // Add Y grid lines with labels
-        drawAxis({
-            yScale,
-            container: svg,
-            tickSize: -width,
-            ticks: 5,
-            tickFormat: (val) => `${val}%`
-        });
-    }, [xScale, yScale, width, height, margin]);
-
-    React.useEffect(() => {
-        const svg = d3.select(".container");
-        svg.selectAll("path").remove();
-        // Draw the lines
-        data.forEach((d) => {
-            const line = drawLine({container: svg, data: d, xScale, yScale});
-            if (!prevItems.includes(d.name)) {
-                animateLine({element: line.node()});
-            }
-        });
-        setPrevItems(data.map(({name}) => name));
-    }, [data, xScale, yScale]);
+    const controller = useController({ data, width, height });
+    const { yTickFormat, xScale, yScale, yScaleForAxis } = controller;
 
     return (
-        <svg ref={svgRef} width={svgWidth} height={svgHeight}>
-            <g className="container" transform={`translate(${margin.left},${margin.top})`}/>
+        <svg width={svgWidth} height={svgHeight}>
+            <g transform={`translate(${margin.left},${margin.top})`}>
+                <GridLine
+                    type="vertical"
+                    scale={xScale}
+                    ticks={5}
+                    size={height}
+                    transform={`translate(0, ${height})`}
+                />
+                <GridLine
+                    type="horizontal"
+                    scale={yScaleForAxis}
+                    ticks={2}
+                    size={width}
+                />
+                <GridLine
+                    type="horizontal"
+                    className="baseGridLine"
+                    scale={yScale}
+                    ticks={1}
+                    size={width}
+                    disableAnimation
+                />
+                {data.map(({ name, items = [], color }) => (
+                    <Line
+                        key={name}
+                        data={items}
+                        xScale={xScale}
+                        yScale={yScale}
+                        color={color}
+                    />
+                ))}
+                <Area
+                    data={data[0].items}
+                    color={data[0].color}
+                    xScale={xScale}
+                    yScale={yScale}
+                />
+                <Axis
+                    type="left"
+                    scale={yScaleForAxis}
+                    transform="translate(50, -10)"
+                    ticks={5}
+                    tickFormat={yTickFormat}
+                />
+                <Axis
+                    type="bottom"
+                    className="axisX"
+                    scale={xScale}
+                    transform={`translate(10, ${height - height / 6})`}
+                    ticks={5}
+                />
+            </g>
         </svg>
     );
 };
