@@ -4,7 +4,8 @@ import schc from "../src/d3/dataTest/SCHC.json";
 import vcit from "../src/d3/dataTest/VCIT.json";
 import portfolio from "../src/d3/dataTest/portfolio.json";
 import MultilineChart from "./d3/MultilineChart/MultilineChart";
-import Legend from "./d3/Legend/Legend";
+import {Legend} from "./d3/components";
+
 
 function App() {
 
