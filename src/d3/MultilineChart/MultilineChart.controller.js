@@ -44,11 +44,18 @@ const useController = ({ data, width, height }) => {
     const yTickFormat = (d) =>
         `${parseFloat(d) > 0 ? "+" : ""}${d3.format(".2%")(d / 100)}`;
 
+    const xTickFormat = (d) => {
+        if (d3.timeFormat("%b")(d) === "Jan") {
+            return d3.timeFormat("%Y")(d);
+        }
+        return d3.timeFormat("%b")(d);
+    };
     return {
         yTickFormat,
         xScale,
         yScale,
-        yScaleForAxis
+        yScaleForAxis,
+        xTickFormat
     };
 };
 
