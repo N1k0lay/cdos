@@ -2,19 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
 
-const Line = ({
-                  xScale,
-                  yScale,
-                  color,
-                  data,
-                  isSmooth,
-                  animation,
-                  ...props
-              }) => {
+const Line = ({xScale, yScale, color, data, isSmooth, animation, ...props}) => {
     const ref = React.useRef(null);
     // Define different types of animation that we can use
     const animateLeft = React.useCallback(() => {
-        const totalLength = ref.current.getTotalLength();
+        // NOTE: for some reason getTotalLength() doesn't work in tests
+        // in this codesandbox so we added default value just for tests
+        const totalLength = ref.current.getTotalLength
+            ? ref.current.getTotalLength()
+            : 500;
         d3.select(ref.current)
             .attr("opacity", 1)
             .attr("stroke-dasharray", `${totalLength},${totalLength}`)
@@ -53,7 +49,9 @@ const Line = ({
     // Recalculate line length if scale has changed
     React.useEffect(() => {
         if (animation === "left") {
-            const totalLength = ref.current.getTotalLength();
+            const totalLength = ref.current.getTotalLength
+                ? ref.current.getTotalLength()
+                : 500;
             d3.select(ref.current).attr(
                 "stroke-dasharray",
                 `${totalLength},${totalLength}`

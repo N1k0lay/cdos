@@ -26,13 +26,25 @@ const GridLine = ({
         gridGroup.select(".domain").remove();
         gridGroup.selectAll("text").remove();
         gridGroup.selectAll("line").attr("stroke", "rgba(255, 255, 255, 0.1)");
-    }, [scale, ticks, size, disableAnimation]);
+    }, [scale, ticks, size, disableAnimation, type]);
 
     return <g ref={ref} transform={transform} {...props} />;
 };
 
 GridLine.propTypes = {
-    type: PropTypes.oneOf(["vertical", "horizontal"]).isRequired
+    scale: PropTypes.func.isRequired,
+    type: PropTypes.oneOf(["vertical", "horizontal"]).isRequired,
+    ticks: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    transform: PropTypes.string,
+    size: PropTypes.number,
+    disableAnimation: PropTypes.bool
+};
+
+GridLine.defaultProps = {
+    ticks: 0,
+    transform: "",
+    size: 0,
+    disableAnimation: false
 };
 
 export default GridLine;
