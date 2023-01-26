@@ -8,12 +8,12 @@ function sin() {
     }
     //Генерация и запись коэффициентов в объект k
     for (let k = 1; k <= 3; k++) {
-        sin.k = [...sin.k, k*2];
+        sin.k = [...sin.k, k*5];
     }
     //получение коэффициентов из объекта
     let odds = sin.k;
     //Расчет и запись данных
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 200; i++) {
         //Создание структуры
         sin.data.push({
             t: '', value: []
@@ -25,6 +25,7 @@ function sin() {
         //используем спред оператор, чтобы не перезаписывать старые данные, а дополнять их
         for (let k = 0; k < odds.length; k++) {
             sin.data[i].value.push(Math.sin(odds[k] * i))
+            //sin.data[i].value.push(Math.sin(odds[k] * i))
         }
 
     }
