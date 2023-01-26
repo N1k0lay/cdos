@@ -6,14 +6,15 @@ import portfolio from "../src/d3/dataTest/portfolio.json";
 import MultilineChart from "./d3/MultilineChart/MultilineChart";
 import {Legend} from "./d3/components";
 import LineChart from "./d3/LineChart";
+import LineChart2 from "./d3/LineChart2/LineChart2";
 
 
 function App() {
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [data, setData] = useState({});
-    const [dataLine, setDataLine] = useState({});
+    const [data, setData] = useState(null);
+    const [formatData, setFormatData] = useState([]);
 
     const portfolioData = {
         name: "Portfolio",
@@ -30,31 +31,26 @@ function App() {
         color: "#5e4fa2",
         items: vcit.map((d) => ({...d, date: new Date(d.date)}))
     };
-
-    useEffect(() => {
-        if (isLoaded) {
-            console.log(data)
-            console.log(data[0])
-            const res = data[0];
-            let viewData = [];
-            for (let i = 0; i < res.k.length; i++) {
-                viewData[i] = {k: res.k[i], data: []};
-                for (let j = 0; j < res.data.length; j++) {
-                    viewData[i].data.push({time: res.data[j].t, value: res.data[j].value[i]})
-                }
-                console.log(res.k[i])
-            }
-            console.log(viewData)
-        }
-    }, [data, isLoaded])
-
-    console.log(vcitData)
-
     const dimensions = {
         width: 600,
         height: 300,
         margin: {top: 30, right: 30, bottom: 30, left: 60}
     };
+    useEffect(() => {
+        if (isLoaded) {
+            let formattedData = [];
+            const res = data[0]; //берем синус для теста
+            for (let i = 0; i < res.k.length; i++) {
+                formattedData[i] = {k: res.k[i], data: []};
+                for (let j = 0; j < res.data.length; j++) {
+                    formattedData[i].data.push({date: res.data[j].t, value: res.data[j].value[i]})
+                }
+            }
+            setFormatData(formattedData);
+
+        }
+    }, [data, isLoaded])
+
 
     const [selectedItems, setSelectedItems] = useState([]);
     const legendData = [portfolioData, schcData, vcitData];
@@ -93,9 +89,13 @@ function App() {
     } else {
         return (
             <div className="App">
-                <LineChart
+                <LineChart2
                     data={[portfolioData, schcData, vcitData]}
                     dimensions={dimensions}/>
+                {console.log(formatData)}
+                {formatData.length>0 && <LineChart
+                    data={formatData}
+                    dimensions={dimensions}/>}
 
                 {/*<Legend*/}
                 {/*    data={legendData}*/}

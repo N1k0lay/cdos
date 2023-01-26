@@ -1,20 +1,22 @@
 import React from "react";
 import * as d3 from "d3";
 
-const LineChart = ({data, dimensions}) => {
+const LineChart2 = ({ data, dimensions }) => {
 
-    console.log(data)
     const svgRef = React.useRef(null);
-    const {width, height, margin} = dimensions;
+    const { width, height, margin } = dimensions;
     const svgWidth = width + margin.left + margin.right;
     const svgHeight = height + margin.top + margin.bottom;
 
     React.useEffect(() => {
-        const xScale = d3.scaleLinear()
-            .domain(d3.extent(data[0].data, (d) => d.date))
+        const xScale = d3.scaleTime()
+            .domain(d3.extent(data[0].items, (d) => d.date))
             .range([0, width]);
         const yScale = d3.scaleLinear()
-            .domain(d3.extent(data[0].data, (d) => d.value))
+            .domain([
+                d3.min(data[0].items, (d) => d.value) - 50,
+                d3.max(data[0].items, (d) => d.value) + 50
+            ])
             .range([height, 0]);
         // Create root container where we will append all other chart elements
         const svgEl = d3.select(svgRef.current);
@@ -56,12 +58,12 @@ const LineChart = ({data, dimensions}) => {
             .enter()
             .append("path")
             .attr("fill", "none")
-            .attr("stroke", () =>  "hsl(" + Math.random() * 360 + ",100%,50%)")
+            .attr("stroke", (d) => d.color)
             .attr("stroke-width", 3)
-            .attr("d", ((d) => line(d.data)));
+            .attr("d", (d) => line(d.items));
     }, [data]); // Redraw chart if data changes
 
-    return <svg ref={svgRef} width={svgWidth} height={svgHeight}/>;
+    return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
 };
 
-export default LineChart;
+export default LineChart2;
