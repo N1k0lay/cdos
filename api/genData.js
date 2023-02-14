@@ -13,7 +13,7 @@ function sin() {
     //получение коэффициентов из объекта
     let odds = sin.k;
     //Расчет и запись данных
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 20; i++) {
         //Создание структуры
         sin.data.push({
             t: '', value: []
