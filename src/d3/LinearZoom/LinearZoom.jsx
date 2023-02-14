@@ -2,10 +2,13 @@ import * as d3 from "d3";
 import React, {useEffect} from "react";
 
 const LinearZoom = ({data, dimensions}) => {
-    const {height, width, margin} = dimensions;
-// append the svg object to the body of the page
 
     useEffect(() => {
+
+        const {height, width, margin} = dimensions;
+
+        d3.select("#my_dataviz").selectAll("*").remove(); //Удаление всех элементов из div, в котором идет отрисовка
+
         const svg = d3.select("#my_dataviz")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -13,21 +16,21 @@ const LinearZoom = ({data, dimensions}) => {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        const x = d3.scaleLinear()
+        const xScale = d3.scaleLinear()
             .domain(d3.extent(data, d => d.date))
             .range([0, width]);
         let xAxis = svg.append("g")
             .attr("transform", `translate(0,${height})`)
             .attr('color', 'black')
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(xScale));
 
         // Add Y axis
-        const y = d3.scaleLinear()
+        const yScale = d3.scaleLinear()
             .domain(d3.extent(data, d => d.value))
             .range([height, 0]);
         let yAxis = svg.append("g")
             .attr('color', 'black')
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(yScale));
 
         // Add a clipPath: everything out of this area won't be drawn.
         const clip = svg.append("defs").append("clipPath")
@@ -48,18 +51,18 @@ const LinearZoom = ({data, dimensions}) => {
             .attr("clip-path", "url(#clip)")
 
         // Create an area generator
-        const areaGenerator = d3.area()
-            .x(d => x(d.date))
-            .y0(y(0))
-            .y1(d => y(d.value))
+        const line = d3.line()
+            .x(d => xScale(d.date))
+            .y(d => yScale(d.value))
 
         // Add the area
         area.append("path")
             .datum(data)
+            .attr('fill', 'none')
             .attr("class", "myArea")  // I add the class myArea to be able to modify it later on.
-            .attr("stroke", "white")
-            .attr("stroke-width", 1)
-            .attr("d", areaGenerator)
+            .attr("stroke", "black")
+            .attr("stroke-width", 3)
+            .attr("d", line)
 
         // Add the brushing
         area
@@ -83,31 +86,31 @@ const LinearZoom = ({data, dimensions}) => {
             // If no selection, back to initial coordinate. Otherwise, update X axis domain
             if (!extent) {
                 if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-                x.domain([4, 8])
+                xScale.domain([4, 8])
             } else {
-                x.domain([x.invert(extent[0]), x.invert(extent[1])])
+                xScale.domain([xScale.invert(extent[0]), xScale.invert(extent[1])])
                 area.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
             }
 
             // Update axis and area position
-            xAxis.transition().duration(1000).call(d3.axisBottom(x))
+            xAxis.transition().duration(1000).call(d3.axisBottom(xScale))
             area
                 .select('.myArea')
                 .transition()
                 .duration(1000)
-                .attr("d", areaGenerator)
+                .attr("d", line)
         }
 
         // If user double click, reinitialize the chart
         svg.on("dblclick", function () {
-            x.domain(d3.extent(data, d => d.date))
-            xAxis.transition().call(d3.axisBottom(x))
+            xScale.domain(d3.extent(data, d => d.date))
+            xAxis.transition().call(d3.axisBottom(xScale))
             area
                 .select('.myArea')
                 .transition()
-                .attr("d", areaGenerator)
+                .attr("d", line)
         });
-    }, [data])
+    }, [data, dimensions])
 
 
     return (<>

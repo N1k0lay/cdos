@@ -1,6 +1,9 @@
 import './App.css';
 import GraphDisplay from "./components/GraphDisplay";
 import './style.css'
+import React from "react";
+import {useWindowSize} from "./hooks/useWindowSize";
+
 
 function App() {
 

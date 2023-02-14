@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import LinearZoom from "../d3/LinearZoom/LinearZoon";
+import LinearZoom from "../d3/LinearZoom/LinearZoom";
 import axios from "axios";
+import {useWindowSize} from "../hooks/useWindowSize";
 
 function formattingData (data, i) {
     let formattedData = [];
@@ -19,19 +20,33 @@ const GraphDisplay = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState({});
     const [formatData, setFormatData] = useState([]);
+    const [width, setWidth] = useState(700)
+    const [height, setHeight] = useState(300)
+
 
     const dimensions = {
-        width: 700,
-        height: 300,
+        width: width,
+        height: height,
         margin: {top: 30, right: 30, bottom: 30, left: 60}
     };
+
+    useEffect(() => {
+        const div = document.querySelector('.graph');
+        const w = div.offsetWidth;
+        const h = div.offsetHeight;
+        console.log(w, h)
+        setWidth(w - 200);
+        setHeight(h - 200);
+        // setWidth(div.offsetWidth - dimensions.margin.left - dimensions.margin.right);
+        // setHeight(div.offsetHeight - dimensions.margin.top - dimensions.margin.bottom);
+        console.log(div.offsetWidth)
+    }, [useWindowSize()[0], useWindowSize()[1]])
 
 
     useEffect(() => {
         axios
             .get("http://localhost:3003/trigonometry/")
             .then(res => {
-                console.log(res)
                 setData(formattingData(res.data, 0))
                 setIsLoaded(true)
             })
