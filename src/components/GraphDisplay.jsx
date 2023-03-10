@@ -3,7 +3,7 @@ import LinearZoom from "../d3/LinearZoom/LinearZoom";
 import axios from "axios";
 import {useWindowSize} from "../hooks/useWindowSize";
 
-function formattingData (data, i) {
+function formattingData(data, i) {
     let formattedData = [];
     const res = data[i]; //берем синус для теста
     for (let i = 0; i < res.k.length; i++) {
@@ -14,6 +14,7 @@ function formattingData (data, i) {
     }
     return formattedData;
 }
+
 const GraphDisplay = () => {
 
     const [error, setError] = useState(null);
@@ -34,12 +35,11 @@ const GraphDisplay = () => {
         const div = document.querySelector('.graph');
         const w = div.offsetWidth;
         const h = div.offsetHeight;
-        console.log(w, h)
-        setWidth(w - 200);
-        setHeight(h - 200);
+        //FIXME: Работает нормально только с 200, иначе едет верстка. Разобраться.
+        setWidth(w - 130);
+        setHeight(h - 130);
         // setWidth(div.offsetWidth - dimensions.margin.left - dimensions.margin.right);
         // setHeight(div.offsetHeight - dimensions.margin.top - dimensions.margin.bottom);
-        console.log(div.offsetWidth)
     }, [useWindowSize()[0], useWindowSize()[1]])
 
 
@@ -62,10 +62,7 @@ const GraphDisplay = () => {
         return <div>Загрузка...</div>;
     } else {
         return (
-            <div>
-                <LinearZoom data={data[0].data} dimensions={dimensions}/>
-            </div>
-
+            <LinearZoom data={data[2].data} dimensions={dimensions}/>
         );
     }
 

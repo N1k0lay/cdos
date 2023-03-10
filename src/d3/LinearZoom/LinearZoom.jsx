@@ -114,11 +114,9 @@ const LinearZoom = ({data, dimensions}) => {
 
 
     return (<>
-            График синуса
-            <div id="my_dataviz"></div>
-        </>
-
-    )
+        График синуса
+        <div id="my_dataviz"></div>
+    </>)
 }
 
 export default LinearZoom;

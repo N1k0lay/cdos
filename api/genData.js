@@ -2,18 +2,19 @@ function sin() {
     //sin от kt
     //Создание объекта. к - коэффициенты, data - рассчитанные данные
     sin = {
+        id: 'sin',
         name: 'Синус',
         k: [],
         data: [],
     }
     //Генерация и запись коэффициентов в объект k
     for (let k = 1; k <= 3; k++) {
-        sin.k = [...sin.k, k*5];
+        sin.k = [...sin.k, k * 5];
     }
     //получение коэффициентов из объекта
     let odds = sin.k;
     //Расчет и запись данных
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 2000; i++) {
         //Создание структуры
         sin.data.push({
             t: '', value: []
@@ -24,7 +25,7 @@ function sin() {
         //Заполнение рассчитанными данными
         //используем спред оператор, чтобы не перезаписывать старые данные, а дополнять их
         for (let k = 0; k < odds.length; k++) {
-            sin.data[i].value.push(Math.sin(odds[k] * i))
+            sin.data[i].value.push(Math.sin(odds[k] * i * 0.001))
             //sin.data[i].value.push(Math.sin(odds[k] * i))
         }
 
@@ -36,6 +37,7 @@ function cos() {
     //cos от kt
     //Создание объекта. к - коэффициенты, data - рассчитанные данные
     cos = {
+        id: 'cos',
         name: 'Консинус',
         k: [], data: [],
     }
@@ -70,7 +72,22 @@ function cos() {
 
 module.exports = () => {
     const data = {
-        menu: [], trigonometry: []
+        menu: [{
+            name: 'Тригонометрия',
+            submenu: [
+                {name: 'Синус', id: 1, link: 'trigonometry/sin'},
+                {name: 'Косинус', id: 2, link: 'trigonometry/cos'},
+                {name: 'Меню 3', id: 3, link: 'trigonometry/cos'},
+                {name: 'Меню 4', id: 4, link: 'trigonometry/cos'}]
+        }, {
+            name: 'Октометрия',
+            submenu: [
+                {name: 'Меню 1', id: 1, link: 'trigonometry/cos'},
+                {name: 'Меню 2', id: 2, link: 'trigonometry/cos'},
+                {name: 'Меню 3', id: 3, link: 'trigonometry/cos'},
+                {name: 'Меню 4', id: 4, link: 'trigonometry/cos'}]
+        }
+        ], trigonometry: []
     }
 
     //Тригонометрия

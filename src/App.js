@@ -1,8 +1,8 @@
 import './App.css';
-import GraphDisplay from "./components/GraphDisplay";
 import './style.css'
 import React from "react";
-import {useWindowSize} from "./hooks/useWindowSize";
+import Sidebar from "./components/Sidebar/Sidebar";
+import {Outlet} from "react-router-dom";
 
 
 function App() {
@@ -10,16 +10,12 @@ function App() {
     return (
         <div className='page'>
             <div className='sidebar'>
-                сайдбар
+                <Sidebar/>
             </div>
-            <div className='graph'>
-                <GraphDisplay />
-            </div>
-            <div className='data'>
-                данные
+            <div className='main'>
+                <Outlet/>
             </div>
         </div>
-
     );
 }
 

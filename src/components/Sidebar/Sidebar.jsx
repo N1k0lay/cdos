@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react';
+import Menu from "../Menu/Menu";
+import './Sidebar.css'
 
-const Sidebar = React.forwardRef((props, ref) => {
-    const {handleAxis, ...restProps} = props;
-    return <div ref={ref} className={`foo handle-${handleAxis}`} {...restProps} />;
-});
+function Sidebar(props) {
+    return (
+        <>
+            <img className={'logo'} src={'http://vniitf.ru/data/pub/imgs/ru/logo_vniitf.png'} />
+            <Menu />
+        </>
+    );
+}
 
 export default Sidebar;

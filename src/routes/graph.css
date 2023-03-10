@@ -1,0 +1,17 @@
+.graphPage {
+	display: grid;
+	grid-template-areas: 'graph' 'data';
+	grid-template-columns: auto;
+	grid-template-rows: minmax(500px, auto) minmax(100px, 1fr);
+}
+
+.graph {
+	grid-area: graph;
+	border-bottom: black 1px solid;
+	padding: 20px;
+
+}
+.data {
+	grid-area: data;
+	padding: 20px;
+}

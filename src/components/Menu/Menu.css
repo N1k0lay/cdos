@@ -1,0 +1,19 @@
+.menu {
+	margin: 0;
+	padding: 0;
+}
+
+.menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.menuItem {
+	padding: 5px 10px;
+	border-bottom: 1px solid gray;
+}
+
+.menuItem:first-child {
+	border-top: 1px solid gray;
+}
