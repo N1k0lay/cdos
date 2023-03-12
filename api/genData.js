@@ -80,7 +80,7 @@ module.exports = () => {
                 {name: 'Меню 3', id: 3, link: 'trigonometry/cos'},
                 {name: 'Меню 4', id: 4, link: 'trigonometry/cos'}]
         }, {
-            name: 'Октометрия',
+            name: 'Меню 2',
             submenu: [
                 {name: 'Меню 1', id: 1, link: 'trigonometry/cos'},
                 {name: 'Меню 2', id: 2, link: 'trigonometry/cos'},

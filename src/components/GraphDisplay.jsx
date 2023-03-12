@@ -3,9 +3,20 @@ import LinearZoom from "../d3/LinearZoom/LinearZoom";
 import axios from "axios";
 import {useWindowSize} from "../hooks/useWindowSize";
 
-function formattingData(data, i) {
+// function formattingData(data, i) {
+//     let formattedData = [];
+//     const res = data[i]; //берем синус для теста
+//     for (let i = 0; i < res.k.length; i++) {
+//         formattedData[i] = {k: res.k[i], data: []};
+//         for (let j = 0; j < res.data.length; j++) {
+//             formattedData[i].data.push({date: res.data[j].t, value: res.data[j].value[i]})
+//         }
+//     }
+//     return formattedData;
+// }
+function formattingDataNew(data) {
     let formattedData = [];
-    const res = data[i]; //берем синус для теста
+    const res = data; //берем синус для теста
     for (let i = 0; i < res.k.length; i++) {
         formattedData[i] = {k: res.k[i], data: []};
         for (let j = 0; j < res.data.length; j++) {
@@ -15,8 +26,8 @@ function formattingData(data, i) {
     return formattedData;
 }
 
-const GraphDisplay = () => {
-
+const GraphDisplay = ({initData}) => {
+    console.log(initData)
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState({});
@@ -42,18 +53,29 @@ const GraphDisplay = () => {
         // setHeight(div.offsetHeight - dimensions.margin.top - dimensions.margin.bottom);
     }, [useWindowSize()[0], useWindowSize()[1]])
 
-
     useEffect(() => {
-        axios
-            .get("http://localhost:3003/trigonometry/")
-            .then(res => {
-                setData(formattingData(res.data, 0))
-                setIsLoaded(true)
-            })
-            .catch(error => {
-                setError(error);
-            })
-    }, [])
+        if(initData?.name !== 'AxiosError') {
+            setData(formattingDataNew(initData));
+            setIsLoaded(true)
+        } else {
+            setError(initData)
+        }
+    },[initData])
+
+    // useEffect(() => {
+    //     console.log(`initData`)
+    //     console.log(formattingDataNew(initData))
+    //     axios
+    //         .get("http://localhost:3003/trigonometry/")
+    //         .then(res => {
+    //             setData(formattingData(res.data, 0))
+    //             console.log(formattingData(res.data, 0))
+    //             setIsLoaded(true)
+    //         })
+    //         .catch(error => {
+    //             setError(error);
+    //         })
+    // }, [])
 
 
     if (error) {

@@ -5,17 +5,16 @@ import {getDataGraph} from "../api/getDataGraph";
 import {useLoaderData} from "react-router-dom";
 
 export async function loader({ params }) {
-    const graphData = await getDataGraph(`${params.category}/${params.func}`);
-    return {graphData}
+    const dataGraph = await getDataGraph(`${params.category}/${params.func}`);
+    return {dataGraph};
 }
 
 const Graph = () => {
-    const { graph } = useLoaderData();
-    console.log(graph)
+    const {dataGraph} = useLoaderData();
     return (
         <div className='graphPage'>
             <div className='graph'>
-                <GraphDisplay />
+                <GraphDisplay initData={dataGraph} />
             </div>
             <div className='data'>
                 данные

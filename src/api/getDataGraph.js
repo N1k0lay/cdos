@@ -1,13 +1,11 @@
 import axios from "axios";
 
 export async function getDataGraph(link) {
-    axios
+    return axios
         .get(`http://localhost:3003/${link}`)
-        .then(res => {
-            console.log(res.data)
-            return res.data
-        })
-        .catch(error => {
-            return error
-        })
+        .then(res => res.data)
+        .catch(error => error)
+    // return fetch(`http://localhost:3003/${link}`)
+    //     .then((response) => response.json());
+
 }
