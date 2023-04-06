@@ -1,17 +1,16 @@
 .graphPage {
 	display: grid;
-	grid-template-areas: 'graph' 'data';
+	grid-template-areas: 'graph-container' 'data-container';
 	grid-template-columns: auto;
-	grid-template-rows: minmax(500px, auto) minmax(100px, 1fr);
+	grid-template-rows: minmax(700px, 80%) 2fr;
 }
 
-.graph {
-	grid-area: graph;
+.graph-container {
+	grid-area: graph-container;
 	border-bottom: black 1px solid;
 	padding: 20px;
-
 }
-.data {
-	grid-area: data;
+.data-container {
+	grid-area: data-container;
 	padding: 20px;
 }

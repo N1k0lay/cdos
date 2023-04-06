@@ -5,7 +5,4 @@ export async function getDataGraph(link) {
         .get(`http://localhost:3003/${link}`)
         .then(res => res.data)
         .catch(error => error)
-    // return fetch(`http://localhost:3003/${link}`)
-    //     .then((response) => response.json());
-
 }

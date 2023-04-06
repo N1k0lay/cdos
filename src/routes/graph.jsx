@@ -13,10 +13,10 @@ const Graph = () => {
     const {dataGraph} = useLoaderData();
     return (
         <div className='graphPage'>
-            <div className='graph'>
+            <div className='graph-container'>
                 <GraphDisplay initData={dataGraph} />
             </div>
-            <div className='data'>
+            <div className='data-container'>
                 данные
             </div>
         </div>

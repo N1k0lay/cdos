@@ -1,42 +1,44 @@
-function sin() {
+function sinGen() {
     //sin от kt
     //Создание объекта. к - коэффициенты, data - рассчитанные данные
-    sin = {
+    const sin = {
         id: 'sin',
         name: 'Синус',
-        k: [],
-        data: [],
+        k: [], data: [],
     }
     //Генерация и запись коэффициентов в объект k
     for (let k = 1; k <= 3; k++) {
-        sin.k = [...sin.k, k * 5];
+        sin.k = [...sin.k, k];
     }
     //получение коэффициентов из объекта
     let odds = sin.k;
     //Расчет и запись данных
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 1000; i++) {
         //Создание структуры
-        sin.data.push({
-            t: '', value: []
-        })
+        sin.data[i] = {
+            t: '', value: {}
+        }
         //Указание временной точки
         sin.data[i].t = i;
 
         //Заполнение рассчитанными данными
         //используем спред оператор, чтобы не перезаписывать старые данные, а дополнять их
         for (let k = 0; k < odds.length; k++) {
-            sin.data[i].value.push(Math.sin(odds[k] * i * 0.001))
-            //sin.data[i].value.push(Math.sin(odds[k] * i))
+            sin.data[i].value = {
+                ...sin.data[i].value,
+                [odds[k]]: Math.sin(odds[k] * i * 0.01)
+            }
         }
 
     }
     return sin
 }
 
-function cos() {
+
+function cosGen() {
     //cos от kt
     //Создание объекта. к - коэффициенты, data - рассчитанные данные
-    cos = {
+    const cos = {
         id: 'cos',
         name: 'Консинус',
         k: [], data: [],
@@ -61,7 +63,7 @@ function cos() {
         for (let k = 0; k < odds.length; k++) {
             cos.data[i].value = {
                 ...cos.data[i].value,
-                [odds[k]]: Math.cos(odds[k] * i)
+                [odds[k]]: Math.cos(odds[k] * i * 0.1)
             }
         }
 
@@ -91,8 +93,8 @@ module.exports = () => {
     }
 
     //Тригонометрия
-    data.trigonometry.push(sin());
-    data.trigonometry.push(cos());
+    data.trigonometry.push(sinGen());
+    data.trigonometry.push(cosGen());
 
     return data
 }

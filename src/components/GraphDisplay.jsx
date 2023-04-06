@@ -1,81 +1,53 @@
 import React, {useEffect, useState} from 'react';
-import LinearZoom from "../d3/LinearZoom/LinearZoom";
-import axios from "axios";
-import {useWindowSize} from "../hooks/useWindowSize";
+import MultiLine from "../d3/MultiLine/MultiLine";
+import {ShowWindowDimensions, useWindowSize} from "../d3/hooks/useWindowSize";
+import {formattingData} from "../d3/utils/formattingData";
+import Legend from "../d3/MultiLine/Legend";
 
-// function formattingData(data, i) {
-//     let formattedData = [];
-//     const res = data[i]; //берем синус для теста
-//     for (let i = 0; i < res.k.length; i++) {
-//         formattedData[i] = {k: res.k[i], data: []};
-//         for (let j = 0; j < res.data.length; j++) {
-//             formattedData[i].data.push({date: res.data[j].t, value: res.data[j].value[i]})
-//         }
-//     }
-//     return formattedData;
-// }
-function formattingDataNew(data) {
-    let formattedData = [];
-    const res = data; //берем синус для теста
-    for (let i = 0; i < res.k.length; i++) {
-        formattedData[i] = {k: res.k[i], data: []};
-        for (let j = 0; j < res.data.length; j++) {
-            formattedData[i].data.push({date: res.data[j].t, value: res.data[j].value[i]})
-        }
-    }
-    return formattedData;
-}
 
 const GraphDisplay = ({initData}) => {
-    console.log(initData)
+    // console.log(initData)
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState({});
-    const [formatData, setFormatData] = useState([]);
-    const [width, setWidth] = useState(700)
-    const [height, setHeight] = useState(300)
-
+    const [filteredData, setFilteredData] = useState({});
+    const [check, setCheck] = useState([])
 
     const dimensions = {
-        width: width,
-        height: height,
-        margin: {top: 30, right: 30, bottom: 30, left: 60}
+        width: 700,
+        height: 300,
+        margin: {top: 30, right: 60, bottom: 30, left: 30}
     };
 
     useEffect(() => {
-        const div = document.querySelector('.graph');
-        const w = div.offsetWidth;
-        const h = div.offsetHeight;
-        //FIXME: Работает нормально только с 200, иначе едет верстка. Разобраться.
-        setWidth(w - 130);
-        setHeight(h - 130);
-        // setWidth(div.offsetWidth - dimensions.margin.left - dimensions.margin.right);
-        // setHeight(div.offsetHeight - dimensions.margin.top - dimensions.margin.bottom);
-    }, [useWindowSize()[0], useWindowSize()[1]])
-
-    useEffect(() => {
-        if(initData?.name !== 'AxiosError') {
-            setData(formattingDataNew(initData));
+        if (initData?.name !== 'AxiosError') {
+            setData(formattingData(initData));
+            setFilteredData(formattingData(initData));
             setIsLoaded(true)
         } else {
             setError(initData)
         }
-    },[initData])
+    }, [initData])
 
-    // useEffect(() => {
-    //     console.log(`initData`)
-    //     console.log(formattingDataNew(initData))
-    //     axios
-    //         .get("http://localhost:3003/trigonometry/")
-    //         .then(res => {
-    //             setData(formattingData(res.data, 0))
-    //             console.log(formattingData(res.data, 0))
-    //             setIsLoaded(true)
-    //         })
-    //         .catch(error => {
-    //             setError(error);
-    //         })
-    // }, [])
+    function handleChangeLegend(dataLegend) {
+        setCheck(dataLegend);
+    }
+
+    useEffect(() => {
+
+        let filterArr = [];
+        for (let i = 0; i < data.length; i++) {
+            if (check.includes(data[i].k)) {
+                filterArr.push(data[i])
+                //setFilteredData([...filteredData, data[i]])
+            } else {
+
+            }
+        }
+        setFilteredData(filterArr)
+        console.log('filteredData')
+        console.log(filteredData)
+    }, [check, data])
 
 
     if (error) {
@@ -84,7 +56,11 @@ const GraphDisplay = ({initData}) => {
         return <div>Загрузка...</div>;
     } else {
         return (
-            <LinearZoom data={data[2].data} dimensions={dimensions}/>
+            <>
+                <MultiLine data={filteredData.length ? filteredData : data} dimensions={dimensions}/>
+                <Legend data={data} handleChangeLegend={handleChangeLegend}/>
+            </>
+
         );
     }
 
