@@ -1,0 +1,12 @@
+.sidebar {
+	border-right: black 1px solid;
+	background-color: #0F172A;
+	color: white;
+	font-size: 16px;
+}
+
+.logo img {
+	max-width: 90%;
+	padding: 5% 5%;
+	margin: 0;
+}

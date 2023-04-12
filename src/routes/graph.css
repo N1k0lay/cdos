@@ -8,9 +8,21 @@
 .graph-container {
 	grid-area: graph-container;
 	border-bottom: black 1px solid;
-	padding: 20px;
+	display: flex;
+	align-items: center;
 }
 .data-container {
 	grid-area: data-container;
 	padding: 20px;
+
+}
+
+.legend_item {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+}
+
+.legend_colorIcon {
+	display: inline;
 }

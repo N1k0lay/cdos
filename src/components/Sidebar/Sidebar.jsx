@@ -1,13 +1,16 @@
 import React from 'react';
 import Menu from "../Menu/Menu";
-import './Sidebar.css'
+import style from './Sidebar.module.css'
+import LogoImg from '../../assets/img/logo_vniitf.png'
 
 function Sidebar(props) {
     return (
-        <>
-            <img className={'logo'} src={'http://vniitf.ru/data/pub/imgs/ru/logo_vniitf.png'} />
+        <div className={style.sidebar}>
+            <div className={style.logo}>
+                <img src={LogoImg}  alt={'logo'}/>
+            </div>
             <Menu />
-        </>
+        </div>
     );
 }
 

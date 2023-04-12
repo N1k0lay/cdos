@@ -9,9 +9,7 @@ function App() {
 
     return (
         <div className='page'>
-            <div className='sidebar'>
                 <Sidebar/>
-            </div>
             <div className='main'>
                 <Outlet/>
             </div>

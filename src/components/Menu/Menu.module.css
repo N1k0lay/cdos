@@ -10,8 +10,19 @@
 }
 
 .menuItem {
-	padding: 5px 10px;
+	padding: 15px 10px;
 	border-bottom: 1px solid gray;
+}
+
+.menuSubItem {
+	padding-top: 5px;
+}
+
+.subLink {
+	color: white;
+	text-decoration: none;
+	padding-left: 15px;
+
 }
 
 .menuItem:first-child {

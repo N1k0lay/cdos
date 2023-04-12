@@ -20,9 +20,11 @@ const Legend = ({data, handleChangeLegend}) => {
         Легенда
         {
             data.map(line => {
+                console.log(line)
                     return (
-                        <div key={line.k}>
+                        <div className={'legend_item'} key={line.k}>
                             <input className={'legendCheckbox'} type="checkbox" id={line.k} name={line.k} value={check.includes(Number(line.k))} onChange={handleChange}/>
+                            <svg className={'legend_colorIcon'} width={14} height={14}><rect x="0" y="0" width="14" height="14" fill={line.color}/></svg>
                             <label htmlFor={line.k}>{line.name}</label>
                         </div>)
                 }

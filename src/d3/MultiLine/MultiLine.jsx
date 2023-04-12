@@ -5,7 +5,7 @@ import {useWindowSize} from "../hooks/useWindowSize";
 
 const MultiLine = ({data, dimensions}) => {
 
-    console.log(data)
+    // console.log(data)
 
     const svgRef = useRef(null);
     const {margin} = dimensions;
@@ -17,10 +17,11 @@ const MultiLine = ({data, dimensions}) => {
     //Первичная установка размеров области графика
     useEffect(() => {
         const div = document.querySelector('.graph-container');
-        const w = div.offsetWidth;
-        const h = div.offsetHeight;
+        const w = div.offsetWidth - margin.left - margin.right;
+        const h = div.offsetHeight - margin.bottom;
         setSvgWidth(w);
-        setSvgHeight(h - 100);
+        setSvgHeight(h);
+        // console.log(w)
     }, [])
 
     useEffect(() => {

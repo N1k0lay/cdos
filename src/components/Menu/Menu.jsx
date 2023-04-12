@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import './Menu.css';
+import './Menu.module.css';
 import axios from "axios";
 import {Link} from "react-router-dom";
-
+import styles from './Menu.module.css'
 function Menu(props) {
 
     const [menu, setMenu] = useState([]);
@@ -22,17 +22,17 @@ function Menu(props) {
     }, [])
 
     return (
-        <menu className={'menu'}>
+        <menu className={styles.menu}>
             <ul>
                 {menu.map(item => {
                     if (item.submenu) {
-                        return <li key={item.name} className={'menuItem'}>
+                        return <li key={item.name} className={styles.menuItem}>
                             <details>
                                 <summary>{item.name}</summary>
                                 <ul>
                                     {item.submenu.map(subItem => {
-                                        return <li key={subItem.id + subItem.name}>
-                                            <Link className={'subLink'} to={subItem.link}>{subItem.name}</Link>
+                                        return <li className={styles.menuSubItem} key={subItem.id + subItem.name}>
+                                            <Link className={styles.subLink} to={subItem.link}>{subItem.name}</Link>
                                         </li>
                                     })}
                                 </ul>
