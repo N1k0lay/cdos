@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import React, {useEffect, useRef, useState} from "react";
-
+import './tooltip.css'
 
 const MultiLine = ({data, dimensions}) => {
 
@@ -54,6 +54,36 @@ const MultiLine = ({data, dimensions}) => {
             .x((d) => xScale(d.date))
             .y((d) => yScale(d.value))
 
+        // create a tooltip
+        const Tooltip =
+            d3.select('.graph-container')
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "2px")
+                .style("border-radius", "5px")
+                .style("padding", "5px")
+
+        // Three function that change the tooltip when user hover / move / leave a cell
+        const mouseover = function (event, d) {
+            Tooltip
+                .style("opacity", 1)
+        }
+        const mousemove = function (event, d) {
+            // console.log('tooltip')
+            Tooltip
+                .html(`y: ${d.value} <br> x: ${d.date}`)
+                .style("left", `${event.layerX + 10}px`)
+                .style("top", `${event.layerY}px`)
+        }
+        const mouseleave = function (event, d) {
+            Tooltip
+                .style("opacity", 0)
+        }
+
+
         //Начало Zoom
 
         // Добавление clipPath: всё что выходит за пределы этой области отображаться не будет
@@ -82,6 +112,7 @@ const MultiLine = ({data, dimensions}) => {
 
         // Функция устанавливает для idleTimeOut =  null
         let idleTimeout
+
         function idled() {
             idleTimeout = null;
         }
@@ -109,6 +140,15 @@ const MultiLine = ({data, dimensions}) => {
                 .attr("stroke", (d) => d.color)
                 .attr("stroke-width", 3)
                 .attr("d", (d) => line(d.items));
+
+            scatter
+                // points
+                .selectAll("circle")
+                .transition().duration(1000)
+                .attr("cx", d => xScale(d.date))
+                .attr("cy", d => yScale(d.value))
+                .attr("r", 3)
+                .attr("stroke", "black")
         }
 
 
@@ -122,13 +162,35 @@ const MultiLine = ({data, dimensions}) => {
             .attr("stroke-width", 3)
             .attr("d", (d) => line(d.items));
 
+        scatter
+            // dots
+            .selectAll(".dots")
+            .data(data)
+            .enter()
+            .append('g')
+            .style("fill", d => (d.color))
+            // points
+            .selectAll(".points")
+            .data(d => d.items)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xScale(d.date))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .attr("stroke", "rgba(0, 0, 0, 0.5)")
+            .style("cursor", 'pointer')
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
+
+
     }, [data, dimensions, height, width, svgWidth, svgHeight])
 
 
     return (
-        <>
+        <div className='graph-container'>
             <svg className='graph' ref={svgRef} width={svgWidth} height={svgHeight}/>
-        </>
+        </div>
     )
 }
 
