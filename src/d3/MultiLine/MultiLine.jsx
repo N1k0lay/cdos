@@ -92,12 +92,10 @@ const MultiLine = ({data, dimensions}) => {
 
             // Если нет выбора, вернуться к исходной координате. В противном случае обновите домен оси X.
             if (!extent) {
-                console.log('Нет')
                 if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // Задержка перед анимацией
                 xScale.domain(d3.extent(data[0].items, d => d.date))
                     .range([0, width]);
             } else {
-                console.log('yes')
                 xScale.domain([xScale.invert(extent[0]), xScale.invert(extent[1])])
                 scatter.select(".brush").call(brush.move, null) // Это удалит серую область кисти, как только выделение будет сделано
             }
