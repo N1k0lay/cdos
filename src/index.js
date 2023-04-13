@@ -15,11 +15,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "graph",
-                element: <Graph />,
-                loader: graphLoader,
-            },
-            {
                 path: ":category/:func",
                 element: <Graph />,
                 loader: graphLoader,

@@ -10,6 +10,11 @@ function Sidebar(props) {
                 <img src={LogoImg}  alt={'logo'}/>
             </div>
             <Menu />
+
+                <button>
+                    Обновить данные
+                </button>
+
         </div>
     );
 }

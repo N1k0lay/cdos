@@ -2,7 +2,7 @@
 	display: grid;
 	grid-template-areas: 'graph-container' 'data-container';
 	grid-template-columns: auto;
-	grid-template-rows: minmax(700px, 80%) 2fr;
+	grid-template-rows: minmax(500px, 80vh) auto;
 }
 
 .container {

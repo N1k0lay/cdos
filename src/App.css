@@ -1,7 +1,19 @@
 @import-normalize;
 
+@font-face {
+  font-family: "Noto Sans";
+  src: local('Noto Sans'), url("./assets/fonts/NotoSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: local('Noto Sans'), url("./assets/fonts/NotoSans-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Noto Sans', sans-serif;
   background-color: #F9FAFB;
   min-height: 100vh;
   margin: 0;

@@ -11,20 +11,21 @@
 
 .menuItem {
 	padding: 15px 10px;
-	border-bottom: 1px solid gray;
+}
+
+.menuItem details summary {
+	cursor: pointer;
 }
 
 .menuSubItem {
 	padding-top: 5px;
+	border-left: 2px solid white;
+	margin-left: 4px;
 }
 
 .subLink {
 	color: white;
 	text-decoration: none;
-	padding-left: 15px;
+	padding-left: 10px;
 
-}
-
-.menuItem:first-child {
-	border-top: 1px solid gray;
 }
