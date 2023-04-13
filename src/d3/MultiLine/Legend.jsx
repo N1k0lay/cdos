@@ -20,7 +20,6 @@ const Legend = ({data, handleChangeLegend}) => {
         Легенда
         {
             data.map(line => {
-                console.log(line)
                     return (
                         <div className={'legend_item'} key={line.k}>
                             <input className={'legendCheckbox'} type="checkbox" id={line.k} name={line.k} value={check.includes(Number(line.k))} onChange={handleChange}/>
