@@ -1,6 +1,5 @@
 import * as d3 from "d3";
 import React, {useEffect, useRef, useState} from "react";
-import {useWindowSize} from "../hooks/useWindowSize";
 
 
 const MultiLine = ({data, dimensions}) => {
@@ -9,25 +8,19 @@ const MultiLine = ({data, dimensions}) => {
 
     const svgRef = useRef(null);
     const {margin} = dimensions;
-    const [width, setWidth] = useState(+dimensions.width - +margin.left - +margin.right)
-    const [height, setHeight] = useState(+dimensions.height - +margin.top - +margin.bottom)
+    const [width, setWidth] = useState(dimensions.width)
+    const [height, setHeight] = useState(dimensions.height)
     const [svgWidth, setSvgWidth] = useState(width);
     const [svgHeight, setSvgHeight] = useState(height);
 
     //Первичная установка размеров области графика
     useEffect(() => {
-        const div = document.querySelector('.graph-container');
-        const w = div.offsetWidth - margin.left - margin.right;
-        const h = div.offsetHeight - margin.bottom;
-        setSvgWidth(w);
-        setSvgHeight(h);
-        // console.log(w)
+        const div = document.querySelector('#graph-container');
+        setSvgWidth(div.offsetWidth);
+        setSvgHeight(div.offsetHeight);
+        setHeight(div.offsetHeight  - margin.top - margin.bottom)
+        setWidth(div.offsetWidth  - margin.left - margin.right)
     }, [])
-
-    useEffect(() => {
-        setWidth(svgWidth - margin.left - margin.right);
-        setHeight(svgHeight - margin.top - margin.bottom)
-    }, [svgWidth, margin.left, margin.right, margin.top, margin.bottom, svgHeight],)
 
     useEffect(() => {
         const xScale = d3.scaleLinear()
@@ -71,7 +64,7 @@ const MultiLine = ({data, dimensions}) => {
             .attr("stroke-width", 3)
             .attr("d", (d) => line(d.items));
 
-    }, [data, dimensions, height, margin.left, margin.top, width, svgWidth, svgHeight])
+    }, [data, dimensions, height, width, svgWidth, svgHeight])
 
 
     return (

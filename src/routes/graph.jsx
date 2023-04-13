@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import './graph.css';
+import styles from './graph.module.css';
 import {getDataGraph} from "../api/getDataGraph";
 import {useLoaderData} from "react-router-dom";
 import MultiLine from "../d3/MultiLine/MultiLine";
 import Legend from "../d3/MultiLine/Legend";
 import {formattingData} from "../d3/utils/formattingData";
+import cn from "classnames";
 
 //Загрузка данных с помощью react-router-dom
 export async function loader({params}) {
@@ -22,9 +23,9 @@ const Graph = () => {
 
 
     const dimensions = {
-        width: 700,
+        width: 300,
         height: 300,
-        margin: {top: 30, right: 40, bottom: 30, left: 30}
+        margin: {top: 30, right: 30, bottom: 30, left: 30}
     };
 
     //Получение данных и обработка ошибок
@@ -61,28 +62,17 @@ const Graph = () => {
         return <div>Загрузка...</div>;
     } else {
         return (
-            <div className='graphPage'>
-                <div className='graph-container'>
+            <div className={styles.graphPage}>
+                <div className={cn(styles.container, styles.graphContainer)} id={'graph-container'}>
                     <MultiLine data={filteredData.length ? filteredData : data} dimensions={dimensions}/>
                 </div>
-                <div className='data-container'>
+                <div className={cn(styles.container, styles.dataContainer)}>
                     <Legend data={data} handleChangeLegend={handleChangeLegend}/>
                 </div>
             </div>
 
         );
     }
-
-    // return (
-    //     <div className='graphPage'>
-    //         <div className='graph-container'>
-    //             <MultiLine data={filteredData.length ? filteredData : data} dimensions={dimensions}/>
-    //         </div>
-    //         <div className='data-container'>
-    //            <Legend data={data} handleChangeLegend={handleChangeLegend}/>
-    //         </div>
-    //     </div>
-    // );
 };
 
 export default Graph;
