@@ -23,7 +23,7 @@ body {
 .page {
   display: grid;
   grid-template-areas: 'sidebar main';
-  grid-template-columns: minmax(200px, 10%) minmax(500px, 90%);
+  grid-template-columns: minmax(220px, 10%) minmax(500px, 90%);
   grid-template-rows: auto;
   min-height: 100vh;
 }

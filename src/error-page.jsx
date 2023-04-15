@@ -6,8 +6,8 @@ export default function ErrorPage() {
 
     return (
         <div id="error-page">
-            <h1>Опа... 404...</h1>
-            <p>Страница не найдена</p>
+            <h1>Рабочие уже крутят гайки... Ждем...</h1>
+            <p>Страница не найдена, может её и не было?</p>
             <p>
                 <i>{error.statusText || error.message}</i>
             </p>

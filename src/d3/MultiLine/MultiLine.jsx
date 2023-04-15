@@ -24,11 +24,16 @@ const MultiLine = ({data, dimensions}) => {
 
     useEffect(() => {
         const xScale = d3.scaleLinear()
-            .domain(d3.extent(data[0].items, d => d.date))
+            .domain([
+                d3.min(data, d => d3.min(d.items, i => i.date)),
+                ((d3.max(data[0].items, (d) => d.date)*1.05))
+            ])
             .range([0, width]);
 
         const yScale = d3.scaleLinear()
-            .domain([d3.min(data, d => d3.min(d.items, i => i.value)), d3.max(data[0].items, (d) => d.value)])
+            .domain([
+                d3.min(data, d => d3.min(d.items, i => i.value)),
+                ((d3.max(data[0].items, (d) => d.value)*1.1))])
             .range([height, 0]);
 
         const svgEl = d3.select(svgRef.current);
@@ -124,7 +129,10 @@ const MultiLine = ({data, dimensions}) => {
             // Если нет выбора, вернуться к исходной координате. В противном случае обновите домен оси X.
             if (!extent) {
                 if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // Задержка перед анимацией
-                xScale.domain(d3.extent(data[0].items, d => d.date))
+                xScale.domain([
+                    d3.min(data, d => d3.min(d.items, i => i.date)),
+                    ((d3.max(data[0].items, (d) => d.date)*1.05))
+                ])
                     .range([0, width]);
             } else {
                 xScale.domain([xScale.invert(extent[0]), xScale.invert(extent[1])])
@@ -177,7 +185,7 @@ const MultiLine = ({data, dimensions}) => {
             .attr("cx", d => xScale(d.date))
             .attr("cy", d => yScale(d.value))
             .attr("r", 3)
-            .attr("stroke", "rgba(0, 0, 0, 0.5)")
+            .attr("stroke", "rgba(0, 0, 0, 0.3)")
             .style("cursor", 'pointer')
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)

@@ -6,18 +6,19 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./error-page";
-import Graph, {loader as graphLoader} from "./routes/graph";
+import Graph from "./routes/graph";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
-        errorElement: <ErrorPage />,
+        element: <App/>,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 path: ":category/:func",
-                element: <Graph />,
-                loader: graphLoader,
+                element: <Graph/>,
             },
         ],
     },
@@ -25,5 +26,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <RouterProvider router={router} />
+    <Provider store={store}>
+        <RouterProvider router={router}/>
+    </Provider>
 );
