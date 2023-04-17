@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "../Sidebar/Sidebar.module.css";
+import style from "./FormSelectReload.module.css";
 import {interval, setMode} from "../../store/reloadSlice";
 import {useDispatch} from "react-redux";
 

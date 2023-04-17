@@ -1,0 +1,47 @@
+
+.selectReload {
+    background-color: #1E293B;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(173, 181, 189, 0.1);
+}
+
+.selectReloadLabel {
+    margin-bottom: 10px;
+}
+
+.selectReload select {
+    margin-top: 10px;
+    color: white;
+    width: 100%;
+    font-size: 14px;
+    background: none;
+    text-align: center;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.selectReload select option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 5px 0;
+    border: 1px solid rgba(173, 181, 189, 0.1);
+    transition: all 200ms ease;
+    border-radius: 5px;
+}
+.selectReload select option:hover {
+    background-color: #3d434d;
+}
+
+.selectReload select option:checked {
+    background-color: rgba(61, 67, 77, 0.42);
+    color: white;
+}
+
+.selectReload select:active, select:focus{
+    outline:none
+}
