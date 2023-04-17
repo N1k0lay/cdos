@@ -33,14 +33,16 @@ const dataGraphSlice = createSlice({
     },
     extraReducers: {
         [fetchDataGraph.pending]: (state, action) => {
-            console.log('loading')
+            // console.log('loading')
             state.status = 'loading';
             state.error = null
         },
         [fetchDataGraph.fulfilled]: (state, action) => {
-            console.log('resolved')
+            // console.log('resolved')
             state.status = 'resolved';
-            state.data = action.payload;
+            if(JSON.stringify(state.data) !== JSON.stringify(action.payload)) {
+                state.data = action.payload;
+            }
         },
         [fetchDataGraph.rejected]: (state, action) => {
             state.status = 'rejected';

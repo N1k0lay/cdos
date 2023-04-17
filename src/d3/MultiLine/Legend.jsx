@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import stylesTypography from '../../assets/styles/typography.module.css';
 import stylesLegend from './Legend.module.css'
 
-const Legend = ({data, handleChangeLegend}) => {
+const Legend = ({data, name, handleChangeLegend}) => {
     const [check, setCheck] = useState([]);
 
     function handleChange(event) {
@@ -16,11 +16,14 @@ const Legend = ({data, handleChangeLegend}) => {
     }
 
     useEffect(() => {
+        console.log(data)
         handleChangeLegend(check)
     }, [check])
     return (
         <>
-            <div className={stylesTypography.title}>Легенда</div>
+
+            <div className={stylesTypography.title}>{name}</div>
+            <div className={stylesTypography.title}>Легенда:</div>
             {
                 data.map(line => {
                         return (
