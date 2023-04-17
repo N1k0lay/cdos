@@ -8,7 +8,7 @@ const reloadSlice = createSlice({
         mode: 'stop', //manual - ручная установка; auto - авто обновление; stop - отключить обновление
     },
     reducers: {
-        reload(state, action) {
+        reload(state) {
             state.reload = !state.reload
         },
         interval(state, action) {

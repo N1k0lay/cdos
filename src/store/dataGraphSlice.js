@@ -32,7 +32,7 @@ const dataGraphSlice = createSlice({
         },
     },
     extraReducers: {
-        [fetchDataGraph.pending]: (state, action) => {
+        [fetchDataGraph.pending]: (state) => {
             // console.log('loading')
             state.status = 'loading';
             state.error = null

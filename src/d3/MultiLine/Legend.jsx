@@ -16,9 +16,8 @@ const Legend = ({data, name, handleChangeLegend}) => {
     }
 
     useEffect(() => {
-        console.log(data)
         handleChangeLegend(check)
-    }, [check])
+    }, [check, handleChangeLegend])
     return (
         <>
 

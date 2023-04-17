@@ -7,7 +7,7 @@ import {formattingData} from "../d3/utils/formattingData";
 import cn from "classnames";
 import {useSelector, useDispatch} from 'react-redux'
 import {fetchDataGraph} from '../store/dataGraphSlice'
-import {interval, upIntervalSec} from "../store/reloadSlice";
+import {upIntervalSec} from "../store/reloadSlice";
 
 const Graph = () => {
     const [isLoaded, setIsLoaded] = useState(false); //Отвечает за готовность данных к отрисовке
