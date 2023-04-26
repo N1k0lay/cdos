@@ -20,6 +20,7 @@ function Menu() {
                 setError(error);
             })
     }, [])
+
     return (
         <menu className={styles.menu}>
             <ul>
