@@ -21,8 +21,6 @@ const reloadSlice = createSlice({
             }
         },
         upIntervalSec(state, action) {
-            console.log('upIntervalSec')
-            console.log(action)
             state.interval += Number(action.payload);
         }
     }
