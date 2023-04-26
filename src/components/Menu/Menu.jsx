@@ -4,8 +4,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import styles from './Menu.module.css'
 
-function Menu(props) {
-
+function Menu() {
     const [menu, setMenu] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState(false);
