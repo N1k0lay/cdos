@@ -8,8 +8,7 @@ export const fetchDataGraph = createAsyncThunk(
             if(!response.ok) {
                 throw new Error('Server Error!');
             }
-            const data = response.json();
-            return data;
+            return response.json();
         } catch (error) {
             return rejectWithValue(error.message)
         }
@@ -33,12 +32,10 @@ const dataGraphSlice = createSlice({
     },
     extraReducers: {
         [fetchDataGraph.pending]: (state) => {
-            // console.log('loading')
             state.status = 'loading';
             state.error = null
         },
         [fetchDataGraph.fulfilled]: (state, action) => {
-            // console.log('resolved')
             state.status = 'resolved';
             if(JSON.stringify(state.data) !== JSON.stringify(action.payload)) {
                 state.data = action.payload;
