@@ -23,13 +23,6 @@ const dataGraphSlice = createSlice({
         status: null,
         error: null,
     },
-    reducers: {
-        update(state, action) {
-            state.data = action.payload
-            console.log(state)
-            console.log(action)
-        },
-    },
     extraReducers: {
         [fetchDataGraph.pending]: (state) => {
             state.status = 'loading';
@@ -48,5 +41,4 @@ const dataGraphSlice = createSlice({
     }
 })
 
-export const {update} = dataGraphSlice.actions;
 export default dataGraphSlice.reducer;
