@@ -27,7 +27,7 @@ const FormSelectReload = () => {
                     dispatch(setInterval(600))
                     dispatch(setMode('manual'));
                 }}>10 минут</option>
-                <option value={0} onClick={() => dispatch(setMode('auto'))}>Автообновление</option>
+                <option value={-1} onClick={() => dispatch(setMode('auto'))}>Автообновление</option>
             </select>
         </form>
     );
