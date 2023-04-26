@@ -20,11 +20,10 @@ function Menu(props) {
                 setError(error);
             })
     }, [])
-
     return (
         <menu className={styles.menu}>
             <ul>
-                {menu.map(item => {
+                {isLoaded && menu.map(item => {
                     if (item.submenu) {
                         return <li key={item.name} className={styles.menuItem}>
                             <details>
@@ -40,6 +39,7 @@ function Menu(props) {
                         </li>
                     }
                 })}
+                {error && <div className={styles.errorMenu}>Сервер не отвечает</div>}
             </ul>
         </menu>
 );
