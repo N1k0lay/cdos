@@ -6,9 +6,7 @@ import './assets/fonts/NotoSans-Light.ttf'
 import './assets/fonts/NotoSans-Regular.ttf'
 import './assets/fonts/NotoSans-Bold.ttf'
 
-
 function App() {
-
     return (
         <div className='page'>
                 <Sidebar/>

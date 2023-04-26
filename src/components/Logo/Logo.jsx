@@ -1,4 +1,3 @@
-import React from 'react';
 import style from "../Sidebar/Sidebar.module.css";
 import LogoImg from "../../assets/img/logo_vniitf.png";
 

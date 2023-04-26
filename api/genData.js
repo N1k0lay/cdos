@@ -158,7 +158,7 @@ module.exports = () => {
                 {name: 'Косинус5k', id: 4, link: 'trigonometry/cos5k'},
             ]
         }
-        ], trigonometry: []
+        ],trigonometry: []
     }
 
     //Тригонометрия
@@ -169,3 +169,4 @@ module.exports = () => {
 
     return data
 }
+

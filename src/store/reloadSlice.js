@@ -11,7 +11,7 @@ const reloadSlice = createSlice({
         reload(state) {
             state.reload = !state.reload
         },
-        interval(state, action) {
+        setInterval(state, action) {
             state.interval = action.payload
         },
         setMode(state, action) {
@@ -28,5 +28,5 @@ const reloadSlice = createSlice({
     }
 })
 
-export const {reload, interval, setMode, upIntervalSec} = reloadSlice.actions;
+export const {reload, setInterval, setMode, upIntervalSec} = reloadSlice.actions;
 export default reloadSlice.reducer;

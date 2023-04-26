@@ -1,7 +1,6 @@
 import {generateColor} from "./generateColor";
 
 export function formattingData(data) {
-    // console.log(data)
     let formattedData = [];
     const res = data;
     for (let i = 0; i < res.k.length; i++) {
@@ -15,6 +14,5 @@ export function formattingData(data) {
             formattedData[i].items.push({date: res.data[j].t, value: res.data[j].value[i + 1]})
         }
     }
-    // console.log(formattedData)
     return formattedData;
 }
