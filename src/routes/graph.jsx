@@ -13,7 +13,7 @@ const Graph = () => {
     const [isLoaded, setIsLoaded] = useState(false); //Отвечает за готовность данных к отрисовке
     const [fetchData, setFetchData] = useState({}); //Данные, которые пришли с сервера без изменений
     const [oldData, setOldData] = useState({}); //Исходные данные перед получением новых данных
-    const [data, setData] = useState({}); //Отоформатированные данные
+    const [data, setData] = useState({}); //Отформатированные данные
     const [filteredData, setFilteredData] = useState({}); //Отформатированные и отфильтрованные данные
     const [check, setCheck] = useState([]) //Массив с отмеченными данными для легенды
     const [firsLoad, setFirstLoad] = useState(true)
