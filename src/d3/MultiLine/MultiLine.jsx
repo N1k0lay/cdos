@@ -56,7 +56,7 @@ const MultiLine = ({data, dimensions}) => {
             .x((d) => xScale(d.date))
             .y((d) => yScale(d.value))
 
-        // create a tooltip
+        // создание tooltip
         const Tooltip =
             d3.select('.graph-container')
                 .append("div")
