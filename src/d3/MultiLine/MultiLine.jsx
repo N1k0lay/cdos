@@ -3,9 +3,6 @@ import React, {useEffect, useRef, useState} from "react";
 import './tooltip.css'
 
 const MultiLine = ({data, dimensions}) => {
-
-    // console.log(data)
-
     const svgRef = useRef(null);
     const {margin} = dimensions;
     const [width, setWidth] = useState(dimensions.width)
@@ -87,7 +84,6 @@ const MultiLine = ({data, dimensions}) => {
             Tooltip
                 .style("opacity", 0)
         }
-
 
         //Начало Zoom
 
