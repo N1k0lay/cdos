@@ -45,6 +45,7 @@ const Graph = () => {
             }, reloadInterval * 1000);
             return () => clearInterval(interval)
         }
+        //Логика для создания адаптации интервала времени обновления данных графика
         if (reloadMode === 'auto') {
             const intervalAuto = setInterval(() => {
                 dispatch(fetchDataGraph(`${params.category}/${params.func}`));
@@ -65,17 +66,12 @@ const Graph = () => {
         if (status === 'resolved') {
             if (firsLoad) {
                 setOldData(dataGraph);
-                setFetchData(dataGraph);
-                setData(formattingData(dataGraph));
-                setFilteredData(formattingData(dataGraph));
-                setIsLoaded(true);
                 setFirstLoad(false);
-            } else {
-                setFetchData(dataGraph);
-                setData(formattingData(dataGraph));
-                setFilteredData(formattingData(dataGraph));
-                setIsLoaded(true);
             }
+            setFetchData(dataGraph);
+            setData(formattingData(dataGraph));
+            setFilteredData(formattingData(dataGraph));
+            setIsLoaded(true);
         }
     }, [dataGraph, firsLoad])
 
