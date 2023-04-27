@@ -68,13 +68,12 @@ const MultiLine = ({data, dimensions}) => {
                 .style("border-radius", "5px")
                 .style("padding", "5px")
 
-        // Three function that change the tooltip when user hover / move / leave a cell
+        // Функции, срабатывающие при наведении на точку (hover / move / leave)
         const mouseover = function (event, d) {
             Tooltip
                 .style("opacity", 1)
         }
         const mousemove = function (event, d) {
-            // console.log('tooltip')
             Tooltip
                 .html(`y: ${d.value} <br> x: ${d.date}`)
                 .style("left", `${event.layerX + 10}px`)

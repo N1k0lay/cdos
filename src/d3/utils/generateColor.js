@@ -7,3 +7,5 @@ export function generateColor() {
     }
     return hexCode;
 }
+
+

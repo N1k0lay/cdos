@@ -111,7 +111,6 @@ const Graph = () => {
                 {isLoaded && <Legend data={data} name={fetchData.name} handleChangeLegend={handleChangeLegend}/>}
             </div>
         </div>
-
     );
 };
 
